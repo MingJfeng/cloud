@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 @RestController
@@ -43,5 +44,16 @@ public class PaymentController {
         }else {
             return new CommonResult(400,"chaxun失败",null);
         }
+    }
+
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLB(){
+        return serverPort;
+    }
+
+    @GetMapping(value = "/payment/feign/timeout")
+    public String paymentFeignTimeout() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(3);
+        return serverPort;
     }
 }
